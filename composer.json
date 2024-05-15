@@ -72,6 +72,9 @@
     },
     "extra": {
         "laravel": {
+            "migrations": [
+                "database/migrations"
+            ],
             "providers": [
                 "Ayzerobug\\LaravelExternalReferences\\LaravelExternalReferencesServiceProvider"
             ],
