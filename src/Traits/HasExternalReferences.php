@@ -18,11 +18,6 @@ trait HasExternalReferences
 
     /**
      * Set a new external reference
-     *
-     * @param string $reference
-     * @param string $provider
-     * @param string|null $tag
-     * @return void
      */
     public function setExternalReference(string $reference, string $provider, ?string $tag = null): void
     {
@@ -31,10 +26,6 @@ trait HasExternalReferences
 
     /**
      * Get the first reference for a given provider and tag.
-     *
-     * @param string $provider
-     * @param string|null $tag
-     * @return string|null
      */
     public function getExternalReference(string $provider, ?string $tag = null): ?string
     {
@@ -45,17 +36,15 @@ trait HasExternalReferences
 
     /**
      * Find the model by external reference.
-     *
-     * @param string $reference
-     * @param string $provider
-     * @param string|null $tag
-     * @return static|null
      */
     public static function findByExternalReference(string $reference, string $provider, ?string $tag = null): ?static
     {
         $referenceable_type = static::class;
         $externalReference = ExternalReference::where(compact('reference', 'referenceable_type', 'provider', 'tag'))->first();
-        if (!$externalReference) return null;
+        if (! $externalReference) {
+            return null;
+        }
+
         return $externalReference->referenceable ?? null;
     }
 }

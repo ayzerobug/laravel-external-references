@@ -2,9 +2,9 @@
 
 namespace Ayzerobug\LaravelExternalReferences\Tests;
 
+use Ayzerobug\LaravelExternalReferences\LaravelExternalReferencesServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Ayzerobug\LaravelExternalReferences\LaravelExternalReferencesServiceProvider;
 
 class TestCase extends Orchestra
 {
