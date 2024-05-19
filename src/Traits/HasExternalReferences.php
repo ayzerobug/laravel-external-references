@@ -20,9 +20,6 @@ trait HasExternalReferences
     /**
      * Set a new external reference.
      *
-     * @param string $reference
-     * @param string $provider
-     * @param string|null $tag
      * @return $this
      */
     public function setExternalReference(string $reference, string $provider, ?string $tag = null): self
@@ -35,13 +32,8 @@ trait HasExternalReferences
         return $this;
     }
 
-
     /**
      * Get the first reference for a given provider and tag.
-     *
-     * @param string $provider
-     * @param string|null $tag
-     * @return string|null
      */
     public function getExternalReference(string $provider, ?string $tag = null): ?string
     {
@@ -52,11 +44,6 @@ trait HasExternalReferences
 
     /**
      * Find the model by external reference.
-     *
-     * @param string $reference
-     * @param string $provider
-     * @param string|null $tag
-     * @return static|null
      */
     public static function findByExternalReference(string $reference, string $provider, ?string $tag = null): ?static
     {
