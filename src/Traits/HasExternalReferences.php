@@ -3,6 +3,7 @@
 namespace Ayzerobug\LaravelExternalReferences\Traits;
 
 use Ayzerobug\LaravelExternalReferences\Models\ExternalReference;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait HasExternalReferences
 {
@@ -17,15 +18,30 @@ trait HasExternalReferences
     }
 
     /**
-     * Set a new external reference
+     * Set a new external reference.
+     *
+     * @param string $reference
+     * @param string $provider
+     * @param string|null $tag
+     * @return $this
      */
-    public function setExternalReference(string $reference, string $provider, ?string $tag = null): void
+    public function setExternalReference(string $reference, string $provider, ?string $tag = null): self
     {
-        $this->external_references()->updateOrCreate(compact('provider', 'tag'), compact('reference'));
+        $this->external_references()->updateOrCreate(
+            ['provider' => $provider,  'tag' => $tag],
+            ['reference' => $reference]
+        );
+
+        return $this;
     }
+
 
     /**
      * Get the first reference for a given provider and tag.
+     *
+     * @param string $provider
+     * @param string|null $tag
+     * @return string|null
      */
     public function getExternalReference(string $provider, ?string $tag = null): ?string
     {
@@ -36,15 +52,23 @@ trait HasExternalReferences
 
     /**
      * Find the model by external reference.
+     *
+     * @param string $reference
+     * @param string $provider
+     * @param string|null $tag
+     * @return static|null
      */
     public static function findByExternalReference(string $reference, string $provider, ?string $tag = null): ?static
     {
-        $referenceable_type = static::class;
-        $externalReference = ExternalReference::where(compact('reference', 'referenceable_type', 'provider', 'tag'))->first();
-        if (! $externalReference) {
-            return null;
-        }
+        $referenceableType = static::class;
 
-        return $externalReference->referenceable ?? null;
+        $externalReference = ExternalReference::where([
+            'reference' => $reference,
+            'referenceable_type' => $referenceableType,
+            'provider' => $provider,
+            'tag' => $tag,
+        ])->first();
+
+        return $externalReference?->referenceable;
     }
 }

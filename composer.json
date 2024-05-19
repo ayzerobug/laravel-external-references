@@ -35,8 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Ayzerobug\\LaravelExternalReferences\\": "src/",
-            "Ayzerobug\\LaravelExternalReferences\\Database\\Factories\\": "database/factories/"
+            "Ayzerobug\\LaravelExternalReferences\\": "src/"
         }
     },
     "autoload-dev": {
@@ -72,9 +71,6 @@
     },
     "extra": {
         "laravel": {
-            "migrations": [
-                "database/migrations"
-            ],
             "providers": [
                 "Ayzerobug\\LaravelExternalReferences\\LaravelExternalReferencesServiceProvider"
             ],

@@ -11,6 +11,7 @@ class LaravelExternalReferencesServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('laravel-external-references')
+            ->hasConfigFile()
             ->hasMigration('create_external_references_table');
     }
 }

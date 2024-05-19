@@ -1,19 +1,16 @@
-# This is my package laravel-external-references
+<img src="https://banners.beyondco.de/Laravel%20External%20References.png?theme=dark&packageManager=composer+require&packageName=ayzerobug%2Flaravel-external-references&pattern=plus&style=style_1&description=Easily+link+Laravel+Models+with+external+data+for+seamless+integration+and+enhanced+functionality.&md=1&showWatermark=0&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg"/>
+
+
+
+
+# Manage External References in Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/ayzerobug/laravel-external-references.svg?style=flat-square)](https://packagist.org/packages/ayzerobug/laravel-external-references)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/ayzerobug/laravel-external-references/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/ayzerobug/laravel-external-references/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/ayzerobug/laravel-external-references/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/ayzerobug/laravel-external-references/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/ayzerobug/laravel-external-references.svg?style=flat-square)](https://packagist.org/packages/ayzerobug/laravel-external-references)
 
-This package helps you connect your Laravel Models to other external systems or services by storing external references or IDs. It makes it easy to link your app's data to external data, like payment processor IDs or user accounts. This helps you integrate your app with other services and systems, making it more powerful and flexible.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-external-references.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-external-references)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+This package facilitates the seamless integration of your Laravel Models with external systems or services by managing external references or identifiers. It streamlines the process of associating your application's data with external datasets, such as payment processor IDs or user accounts. This enhancement enables the smooth integration of your application with diverse services and systems, thereby augmenting its capabilities and adaptability.
 
 ## Installation
 
@@ -26,22 +23,37 @@ composer require ayzerobug/laravel-external-references
 You can publish and run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-external-references-migrations"
+php artisan vendor:publish --tag="external-references-migrations"
 php artisan migrate
 ```
 
-<!-- You can publish the config file with:
+You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="laravel-external-references-config"
+php artisan vendor:publish --tag="external-references-config"
 ```
 
 This is the contents of the published config file:
 
 ```php
+
 return [
+
+    /*
+    |----------------------------------------------------------------------------------
+    | Hidden Attributes
+    |----------------------------------------------------------------------------------
+    |
+    | This configuration file defines the attributes that should be hidden by default 
+    | in your ExternalReference Eloquent models. Hidden attributes are excluded from
+    | the model's array and JSON representations.
+    |
+    */
+
+    'hidden_attributes' => ['referenceable_type', 'referenceable_id', 'created_at', 'updated_at']
 ];
-``` -->
+
+```
 
 <!-- Optionally, you can publish the views using
 
@@ -51,15 +63,48 @@ php artisan vendor:publish --tag="laravel-external-references-views"
 
 ## Usage
 
+Include the HasExternalReferences trait in your model:
+
 ```php
-$laravelExternalReferences = new Ayzerobug\LaravelExternalReferences();
-echo $laravelExternalReferences->echoPhrase('Hello, Ayzerobug!');
+namespace App\Models;
+
+use Ayzerobug\LaravelExternalReferences\Traits\HasExternalReferences;
+
+class Payment extends Model
+{
+    use HasExternalReferences;
+
+    ...
+}
+
 ```
 
-## Testing
+Set Payment External Reference:
 
-```bash
-composer test
+```php
+use App\Models\Payment;
+
+$payment = Payment::find($id);
+$idOnPaystack = "random-id";
+$payment->setExternalReference($idOnPaystack, 'paystack');
+```
+
+Get the external Reference
+
+```php
+use App\Models\Payment;
+
+$payment = Payment::find($id);
+$idOnPaystack = $payment->getExternalReference('paystack');
+```
+
+Get Payment with the external Reference
+
+```php
+use App\Models\Payment;
+
+$idOnPaystack = "random-id";
+$payment = Payment::findByExternalReference($idOnPaystack, 'paystack');
 ```
 
 ## Changelog
@@ -76,7 +121,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Ayomide Micheal](https://github.com/Ayzerobug)
+- [Ayomide Micheal](https://github.com/ayzerobug)
 - [All Contributors](../../contributors)
 
 ## License
