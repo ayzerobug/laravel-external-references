@@ -1,6 +1,6 @@
 {
     "name": "ayzerobug/laravel-external-references",
-    "description": "This is my package laravel-external-references",
+    "description": "Easy link Laravel Models with external references for seamless integration and enhanced functionality.",
     "keywords": [
         "Ayzerobug",
         "laravel",
