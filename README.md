@@ -33,28 +33,6 @@ You can publish the config file with:
 php artisan vendor:publish --tag="external-references-config"
 ```
 
-This is the contents of the published config file:
-
-```php
-
-return [
-
-    /*
-    |----------------------------------------------------------------------------------
-    | Hidden Attributes
-    |----------------------------------------------------------------------------------
-    |
-    | This configuration file defines the attributes that should be hidden by default 
-    | in your ExternalReference Eloquent models. Hidden attributes are excluded from
-    | the model's array and JSON representations.
-    |
-    */
-
-    'hidden_attributes' => ['referenceable_type', 'referenceable_id', 'created_at', 'updated_at']
-];
-
-```
-
 <!-- Optionally, you can publish the views using
 
 ```bash
