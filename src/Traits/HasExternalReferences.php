@@ -4,6 +4,7 @@ namespace Ayzerobug\LaravelExternalReferences\Traits;
 
 use Ayzerobug\LaravelExternalReferences\Models\ExternalReference;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Facades\Cache;
 
 trait HasExternalReferences
 {
@@ -12,7 +13,7 @@ trait HasExternalReferences
      *
      * @return MorphMany
      */
-    public function external_references()
+    public function externalReferences()
     {
         return $this->morphMany(ExternalReference::class, 'referenceable');
     }
@@ -24,7 +25,7 @@ trait HasExternalReferences
      */
     public function setExternalReference(string $reference, string $provider, ?string $tag = null): self
     {
-        $this->external_references()->updateOrCreate(
+        $this->externalReferences()->updateOrCreate(
             ['provider' => $provider,  'tag' => $tag],
             ['reference' => $reference]
         );
@@ -37,9 +38,21 @@ trait HasExternalReferences
      */
     public function getExternalReference(string $provider, ?string $tag = null): ?string
     {
-        return $this->external_references()
-            ->where('provider', $provider)
-            ->where('tag', $tag)->first()?->reference;
+        $cacheEnabled = config('external-references.caching', false);
+        $cacheLifespan = config('external-references.cache_lifespan');
+        $cacheKey = "external_references.provider:$provider," . self::class . ":{$this->id},tag:$tag";
+
+        $callback = function () use ($provider, $tag) {
+            return $this->externalReferences()
+                ->where('provider', $provider)
+                ->where('tag', $tag)->first()?->reference;
+        };
+
+        if ($cacheEnabled) {
+            return Cache::remember($cacheKey, now()->addSeconds($cacheLifespan), $callback);
+        }
+
+        return  $callback();
     }
 
     /**
