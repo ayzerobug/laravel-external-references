@@ -40,7 +40,7 @@ trait HasExternalReferences
     {
         $cacheEnabled = config('external-references.caching', false);
         $cacheLifespan = config('external-references.cache_lifespan');
-        $cacheKey = "external_references.provider:$provider," . self::class . ":{$this->id},tag:$tag";
+        $cacheKey = "external_references.provider:$provider,".self::class.":{$this->id},tag:$tag";
 
         $callback = function () use ($provider, $tag) {
             return $this->externalReferences()
@@ -52,7 +52,7 @@ trait HasExternalReferences
             return Cache::remember($cacheKey, now()->addSeconds($cacheLifespan), $callback);
         }
 
-        return  $callback();
+        return $callback();
     }
 
     /**

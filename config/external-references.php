@@ -20,14 +20,13 @@ return [
     | Caching
     |----------------------------------------------------------------------------------
     |
-    | In some cases where you have many logics using this package and you don't want all 
+    | In some cases where you have many logics using this package and you don't want all
     | requests to hit your database, you can enable caching to cache the value of
     | the identifier for a while.
     |
     */
     'caching' => (bool) env('EXTERNAL_REFERENCES_CACHING', false),
 
-    
     /*
     |----------------------------------------------------------------------------------
     | Cache lifespan
