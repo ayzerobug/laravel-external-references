@@ -40,7 +40,7 @@ trait HasExternalReferences
     {
         $cacheEnabled = config('external-references.caching', false);
         $cacheLifespan = config('external-references.cache_lifespan', 20);
-        $cacheKey = "external_references.provider:$provider,".self::class.":{$this->id},tag:$tag";
+        $cacheKey = "external_references.provider:$provider,".static::class.":{$this->id},tag:$tag";
 
         $callback = function () use ($provider, $tag) {
             return $this->externalReferences()
