@@ -7,7 +7,7 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class LaravelExternalReferencesServiceProvider extends PackageServiceProvider
 {
-    //Configure Package
+    // Configure Package
     public function configurePackage(Package $package): void
     {
 
