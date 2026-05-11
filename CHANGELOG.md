@@ -2,6 +2,22 @@
 
 All notable changes to `laravel-external-references` will be documented in this file.
 
+## Added Support for Laravel 13 - 2026-05-11
+
+### What's Changed
+
+* Bump stefanzweifel/git-auto-commit-action from 5 to 6 by @dependabot[bot] in https://github.com/ayzerobug/laravel-external-references/pull/5
+* Bump aglipanci/laravel-pint-action from 2.5 to 2.6 by @dependabot[bot] in https://github.com/ayzerobug/laravel-external-references/pull/6
+* Bump actions/checkout from 4 to 5 by @dependabot[bot] in https://github.com/ayzerobug/laravel-external-references/pull/7
+* Bump stefanzweifel/git-auto-commit-action from 6 to 7 by @dependabot[bot] in https://github.com/ayzerobug/laravel-external-references/pull/8
+* Bump actions/checkout from 5 to 6 by @dependabot[bot] in https://github.com/ayzerobug/laravel-external-references/pull/9
+* Bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/ayzerobug/laravel-external-references/pull/10
+* Bump dependabot/fetch-metadata from 2.5.0 to 3.0.0 by @dependabot[bot] in https://github.com/ayzerobug/laravel-external-references/pull/12
+* Bump ramsey/composer-install from 3 to 4 by @dependabot[bot] in https://github.com/ayzerobug/laravel-external-references/pull/11
+* Bump dependabot/fetch-metadata from 3.0.0 to 3.1.0 by @dependabot[bot] in https://github.com/ayzerobug/laravel-external-references/pull/13
+
+**Full Changelog**: https://github.com/ayzerobug/laravel-external-references/compare/v0.0.10...v0.0.11
+
 ## Added caching logic - 2024-09-08
 
 ### Release Note: Caching Feature for External References
